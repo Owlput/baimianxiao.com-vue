@@ -1,8 +1,8 @@
 <script>
-import Thumb from './card/Thumb.vue'
 import axios from "axios";
-import { apiAddr } from '../config'
-import { ref, watchEffect, computed, onRenderTriggered } from 'vue';
+import { apiAddr, siteAddr, imgAddr } from '../config'
+import { ref, watchEffect, computed } from 'vue';
+import ViewCount from "./ViewCount.vue";
 
 const thumbs = ref([])
 const page = ref([1, 1])
@@ -35,16 +35,14 @@ watchEffect(() => { timeSort(timeOrd.value) })
 
 export default {
     name: 'ThumbHolder',
-    components: {
-        Thumb
-    },
     setup() {
-        onRenderTriggered((event) => {
-            console.log(event)
-        })
         return {
-            displayed, page, timeOrd
+            displayed, page, timeOrd, siteAddr,
+            imgAddr
         }
+    },
+    components:{
+        ViewCount
     },
     methods: {
         setTimeOrd(ord) {
@@ -63,9 +61,18 @@ export default {
 
 <template>
     <div class="flex flex-wrap justify-around ml-24 mr-24 mb-4 mt-4">
-        <div class="h-auto w-auto flex flex-col border-spacing-4 shadow-md m-2.5 rounded-md "
-            v-for="thumbData in displayed" :key="thumbData.uri"> <!-- Please include the key prop to help update stale content -->
-            <Thumb :thumb="thumbData"></Thumb>
+        <div class="h-auto w-auto flex flex-col border-spacing-4 shadow-md m-2.5 rounded-md " v-for="thumb in displayed"
+            :key="thumb.uri">
+            <!-- Please include the key prop to help update stale content -->
+            <img class="h-[200px] w-[200px] rounded-t-md hover:opacity-80"
+                :src="imgAddr + '/thumbs/' + thumb.uri + '.jpg'" />
+            <p class="ml-1.5">{{ thumb.title }}</p>
+            <div class="mt-1 mb-1 ml-1.5">
+                <img class="rounded-full h-8 w-8 inline float-left"
+                    :src="imgAddr + '/authorProfile/' + thumb.author.image" />
+                <p class="text-md ml-2 inline float-left mt-1">{{ thumb.author.name }}</p>
+                <ViewCount :count="5247" class="inline float-right"></ViewCount>
+            </div>
         </div>
 
     </div>
