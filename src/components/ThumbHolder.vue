@@ -49,11 +49,6 @@ function timeSort(ord) {
       });
 }
 
-function setTimeOrd(ord) {
-  this.timeOrd = ord;
-  console.log(`ord:${this.timeOrd}`);
-}
-
 // Side effects
 watchEffect(async () => {
   thumbs.value = await (
