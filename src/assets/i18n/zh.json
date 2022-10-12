@@ -1,8 +1,12 @@
 {
-    "topNav":{
-        "home":"首页",
-        "posts":"稿件",
-        "permits":"许可",
-        "about":"关于"
-    }
+  "topNav": {
+    "home": "首页",
+    "posts": "稿件",
+    "permits": "许可",
+    "about": "关于"
+  },
+  "timeOrder": {
+    "newToOld": "从新到旧",
+    "oldToNew": "从旧到新"
+  }
 }

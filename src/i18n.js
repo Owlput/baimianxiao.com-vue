@@ -8,6 +8,7 @@ const i18n = createI18n({
     en: enUs,
     zh: zhCn,
   },
+  allowComposition: true,
 });
 
 export default i18n;

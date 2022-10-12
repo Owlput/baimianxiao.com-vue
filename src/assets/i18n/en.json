@@ -1,8 +1,12 @@
 {
-    "topNav":{
-        "home":"Home",
-        "posts":"Posts",
-        "permits":"Permits",
-        "about":"About"
-    }
+  "topNav": {
+    "home": "Home",
+    "posts": "Posts",
+    "permits": "Permits",
+    "about": "About"
+  },
+  "timeOrder": {
+    "newToOld": "New To Old",
+    "oldToNew": "Old To New"
+  }
 }

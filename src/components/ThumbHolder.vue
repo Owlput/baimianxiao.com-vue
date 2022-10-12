@@ -3,10 +3,12 @@ import axios from "axios";
 import { apiAddr, imgAddr } from "../config";
 import { ref, watchEffect, computed, onMounted } from "vue";
 import ViewCount from "./ViewCount.vue";
+import { useI18n } from "vue-i18n/dist/vue-i18n.esm-bundler";
 
+let { t } = useI18n({});
 const thumbs = ref([]);
 const page = ref([1, 1]);
-const timeOrd = ref(true);
+const timeOrd = ref(1);
 const numToDisp = ref(10);
 function limitNumToDisp() {
   numToDisp.value = 4;
@@ -20,17 +22,7 @@ const displayed = computed(() => {
       )
     : [];
 });
-const timeOrderList = [
-  {
-    value: true,
-    label: "New to Old",
-  },
-  {
-    value: false,
-    label: "Old to New",
-  },
-];
-
+const timeOrderList = ref([{ value: "empty", label: "empty" }]);
 function timeSort(ord) {
   ord
     ? thumbs.value.sort((s, t) => {
@@ -63,6 +55,17 @@ onMounted(() => {
   if (window.innerWidth < 640) {
     limitNumToDisp();
   }
+
+  timeOrderList.value = [
+    {
+      value: 1,
+      label: t("timeOrder.newToOld"),
+    },
+    {
+      value: 0,
+      label: t("timeOrder.oldToNew"),
+    },
+  ];
 });
 </script>
 
