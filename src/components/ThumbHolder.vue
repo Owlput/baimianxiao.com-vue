@@ -12,7 +12,7 @@ function limitNumToDisp() {
   numToDisp.value = 4;
 }
 const displayed = computed(() => {
-  console.log(`recomputed,numToDisp is now ${numToDisp.value}`)
+  console.log(`recomputed,numToDisp is now ${numToDisp.value}`);
   return thumbs.value
     ? thumbs.value.slice(
         (page.value[0] - 1) * numToDisp.value,
@@ -109,7 +109,7 @@ onMounted(() => {
         <ViewCount :count="5247" class="inline float-right"></ViewCount>
       </div>
     </div>
-    <div class="w-full h-fit" v-if="numToDisp < 10">
+    <div class="w-full h-fit" v-if="numToDisp >= 10">
       <el-pagination
         background
         layout="prev, pager, next"
