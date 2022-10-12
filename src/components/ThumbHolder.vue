@@ -1,17 +1,35 @@
-<script>
+<script setup>
 import axios from "axios";
-import { apiAddr, siteAddr, imgAddr } from "../config";
-import { ref, watchEffect, computed } from "vue";
+import { apiAddr, imgAddr } from "../config";
+import { ref, watchEffect, computed, onMounted } from "vue";
 import ViewCount from "./ViewCount.vue";
 
 const thumbs = ref([]);
 const page = ref([1, 1]);
 const timeOrd = ref(true);
+const numToDisp = ref(10);
+function limitNumToDisp() {
+  numToDisp.value = 4;
+}
 const displayed = computed(() => {
+  console.log(`recomputed,numToDisp is now ${numToDisp.value}`)
   return thumbs.value
-    ? thumbs.value.slice((page.value[0] - 1) * 10, page.value[0] * 10)
+    ? thumbs.value.slice(
+        (page.value[0] - 1) * numToDisp.value,
+        page.value[0] * numToDisp.value
+      )
     : [];
 });
+const timeOrderList = [
+  {
+    value: true,
+    label: "New to Old",
+  },
+  {
+    value: false,
+    label: "Old to New",
+  },
+];
 
 function timeSort(ord) {
   ord
@@ -30,53 +48,45 @@ function timeSort(ord) {
         else return 1;
       });
 }
+
+function setTimeOrd(ord) {
+  this.timeOrd = ord;
+  console.log(`ord:${this.timeOrd}`);
+}
+
+// Side effects
 watchEffect(async () => {
   thumbs.value = await (
     await axios.get(`${apiAddr}/baimianxiao/data/thumbData/all`)
   ).data;
-  page.value = [1, Math.ceil(thumbs.value.length / 10)];
+  page.value = [1, Math.ceil(thumbs.value.length / numToDisp.value)];
 });
 watchEffect(() => {
   timeSort(timeOrd.value);
 });
-
-export default {
-  name: "ThumbHolder",
-  setup() {
-    return {
-      displayed,
-      page,
-      timeOrd,
-      siteAddr,
-      imgAddr,
-    };
-  },
-  components: {
-    ViewCount,
-  },
-  methods: {
-    setTimeOrd(ord) {
-      this.timeOrd = ord;
-      console.log(`ord:${this.timeOrd}`);
-    },
-    setPage(page) {
-      if (page <= 0) return;
-      if (page >= this.page[1]) {
-        this.page[0] = this.page[1];
-        return;
-      }
-      this.page[0] = page;
-    },
-  },
-};
+onMounted(() => {
+  if (window.innerWidth < 640) {
+    limitNumToDisp();
+  }
+});
 </script>
 
 <template>
   <div
-    class="flex flex-wrap  sm:justify-around justify-center sm:ml-12 sm:mr-12 sm:mb-4 sm:mt-4 lg:ml-[8%] lg:mr-[8%] m-2"
+    class="flex flex-wrap 2xl:w-[80rem] sm:justify-around justify-center sm:mx-[8%] sm:my-4 lg:mx-[10%] 2xl:mx-auto max-w-[600px] sm:max-w-none m-auto"
   >
+    <div class="flex w-full flex-row justify-evenly">
+      <el-select v-model="timeOrd">
+        <el-option
+          v-for="item in timeOrderList"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        ></el-option>
+      </el-select>
+    </div>
     <div
-      class="h-fit w-[200px] flex flex-col flex-shrink-0 border-spacing-4 shadow-md sm:m-1.5 rounded-md m-1"
+      class="h-fit w-[200px] flex flex-col flex-shrink-0 border-spacing-4 shadow-md sm:m-4 rounded-md m-1"
       v-for="thumb in displayed"
       :key="thumb.uri"
     >
@@ -84,6 +94,7 @@ export default {
       <img
         class="h-[200px] w-[200px] rounded-t-md hover:opacity-80"
         :src="imgAddr + '/thumbs/' + thumb.uri + '.jpg'"
+        @click="this.$router.push(`/artwork?id=${thumb.uri}`)"
       />
 
       <div class="mt-1 mb-1 ml-1.5 hidden sm:block">
@@ -98,9 +109,14 @@ export default {
         <ViewCount :count="5247" class="inline float-right"></ViewCount>
       </div>
     </div>
+    <div class="w-full h-fit" v-if="numToDisp < 10">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :page-count="page[1]"
+        v-model:current-page="page[0]"
+        class="mx-auto w-fit"
+      ></el-pagination>
+    </div>
   </div>
-  <button @click="setTimeOrd(true)">从新到旧</button>
-  <button @click="setTimeOrd(false)">从旧到新</button>
-  <button @click="setPage(page[0] + 1)">下一页</button>
-  <button @click="setPage(page[0] - 1)">上一页</button>
 </template>

@@ -1,13 +1,7 @@
-<script>
-import ThumbHolder from '../components/ThumbHolder.vue'
-export default{
-    name:"ThumbPage",
-    components:{
-        ThumbHolder
-    }
-}
+<script setup>
+import ThumbHolder from "../components/ThumbHolder.vue";
 </script>
 
 <template>
-    <ThumbHolder></ThumbHolder>
+  <ThumbHolder></ThumbHolder>
 </template>

@@ -14,18 +14,6 @@ export default {
 <template>
   <TopNav></TopNav>
   <router-view></router-view>
-  <section
-    class="bg-black flex min-h-fit justify-around items-center flex-wrap"
-  >
-    <a
-      href="https://beian.miit.gov.cn/"
-      class="sm:text-xl lg:text-3xl h-fit text-white m-2"
-      >赣ICP备2021006793号-2</a
-    >
-    <address class="sm:text-xl lg:text-3xl text-white h-fit m-2">
-      DrHuangMHT@owlput.org
-    </address>
-  </section>
 </template>
 
 <style>
