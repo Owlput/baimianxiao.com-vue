@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 #app {
-  width: fit-content;
+  width: 100%;
   border-left: auto;
   border-right: auto;
+  height: fit-content;
 }

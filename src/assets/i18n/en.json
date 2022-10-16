@@ -1,7 +1,12 @@
 {
   "topNav": {
     "home": "Home",
-    "posts": "Posts",
+    "works": {
+      "#main":"Works",
+      "illustrations":"Illustrations",
+      "articles":"Articles",
+      "videos":"Videos"
+    },
     "permits": "Permits",
     "about": "About"
   },

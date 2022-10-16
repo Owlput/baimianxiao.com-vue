@@ -14,7 +14,6 @@ function limitNumToDisp() {
   numToDisp.value = 4;
 }
 const displayed = computed(() => {
-  console.log(`recomputed,numToDisp is now ${numToDisp.value}`);
   return thumbs.value
     ? thumbs.value.slice(
         (page.value[0] - 1) * numToDisp.value,
@@ -92,7 +91,7 @@ onMounted(() => {
       <img
         class="h-[200px] w-[200px] rounded-t-md hover:opacity-80"
         :src="imgAddr + '/thumbs/' + thumb.uri + '.jpg'"
-        @click="this.$router.push(`/artwork?id=${thumb.uri}`)"
+        @click="this.$router.push(`/artwork/${thumb.uri}`)"
       />
 
       <div class="mt-1 mb-1 ml-1.5 hidden sm:block">

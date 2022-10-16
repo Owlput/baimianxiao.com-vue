@@ -1,7 +1,6 @@
 <script setup>
 // This page component is for showing a single artwork
 import { imgAddr } from "../config";
-
 defineProps({
   id: String,
 });
