@@ -2,7 +2,7 @@
 import { watchEffect } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
 import { ref } from "vue";
-import { useI18n } from "vue-i18n/dist/vue-i18n.esm-bundler";
+import { useI18n } from "vue-i18n";
 
 let { t } = useI18n({});
 let router = useRouter();
@@ -57,8 +57,13 @@ function handleSelect(k, path) {
 </script>
 
 <template>
-  <el-menu :default-active="activated" mode="horizontal" @select="handleSelect" :ellipsis="false">
-    <div class="h-fit w-[5%]"/>
+  <el-menu
+    :default-active="activated"
+    mode="horizontal"
+    @select="handleSelect"
+    :ellipsis="false"
+  >
+    <div class="h-fit w-[5%]" />
     <el-menu-item index="0">LOGO</el-menu-item>
     <div class="flex-grow" />
     <el-menu-item index="1">{{ t("topNav.home") }}</el-menu-item>
@@ -72,6 +77,6 @@ function handleSelect(k, path) {
     </el-sub-menu>
     <el-menu-item>{{ t("topNav.permits") }}</el-menu-item>
     <el-menu-item>{{ t("topNav.about") }}</el-menu-item>
-    <div class="h-fit w-[5%]"/>
+    <div class="h-fit w-[5%]" />
   </el-menu>
 </template>
