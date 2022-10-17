@@ -2,10 +2,10 @@
   "topNav": {
     "home": "首页",
     "works": {
-      "#main":"作品",
-      "illustrations":"插画",
-      "articles":"文章",
-      "videos":"视频"
+      "#main": "作品",
+      "illustrations": "插画",
+      "articles": "文章",
+      "videos": "视频"
     },
     "permits": "许可",
     "about": "关于"
