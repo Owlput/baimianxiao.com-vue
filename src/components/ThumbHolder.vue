@@ -11,21 +11,20 @@ const thumbs = ref([]);
 const page = ref([1, 1]);
 const timeOrd = ref(1);
 const numToDisp = ref(10);
-const status = ref("pending");
+const status = ref("");
 
-function limitNumToDisp() {
-  numToDisp.value = 4;
-}
+//prettier-ignore
+function limitNumToDisp() {numToDisp.value = 4;}
 const displayed = computed(() => {
   // prettier-ignore
   return thumbs.value
     ? thumbs.value.slice( (page.value[0] - 1) * numToDisp.value, page.value[0] * numToDisp.value)
     : [];
 });
-const timeOrderList = ref([{ value: "empty", label: "empty" }]);
+const timeOrderList = ref([{ value: "none", label: "none" }]);
 function timeSort(ord) {
   //prettier-ignore
-  if (!thumbs.value) return;
+  if (!thumbs.value) return; // Skip sorting when no data present.
   ord
     ? thumbs.value.sort((s, t) => {
         let a = s.date;
@@ -47,7 +46,6 @@ function timeSort(ord) {
 watchEffect(async () => {
   thumbs.value = await (
     await axios.get(`${apiAddr}/baimianxiao/data/thumbData/all`).catch((e) => {
-      console.log(e);
       switch (e.message) {
         case "Network Error":
           status.value = "beTimeout";
@@ -55,13 +53,10 @@ watchEffect(async () => {
         default:
           status.value = "brokenLib";
       }
-      console.log(status.value);
     })
   )?.data;
-  if (!thumbs.value) {
-    page.value = [1, 0];
-    return;
-  }
+  //prettier-ignore
+  if (!thumbs.value) {page.value = [1, 0];return;} // Set maximum page to 0 when no data present.
   page.value = [1, Math.ceil(thumbs.value.length / numToDisp.value)];
 });
 watchEffect(() => {
@@ -72,7 +67,7 @@ onMounted(() => {
     limitNumToDisp();
   }
   // prettier-ignore
-  timeOrderList.value = [{value: 1,label: t("timeOrder.newToOld"),},{value: 0,label: t("timeOrder.oldToNew"),},];
+  timeOrderList.value = [{value: 1,label: t("timeOrder.newToOld"),},{value: 0,label: t("timeOrder.oldToNew"),},]; //Generate translation on the fly.
 });
 </script>
 
@@ -104,7 +99,6 @@ onMounted(() => {
           :src="imgAddr + '/thumbs/' + thumb.uri + '.jpg'"
           @click="this.$router.push(`/artwork/${thumb.uri}`)"
         />
-
         <div class="mt-1 mb-1 ml-1.5 hidden sm:block">
           <p class="ml-1.5">{{ thumb.title }}</p>
           <img
@@ -118,7 +112,7 @@ onMounted(() => {
         </div>
       </li>
     </ul>
-    <ContentUnavailable v-else-if="status != 'pending'" :type="status" />
+    <ContentUnavailable v-else-if="status" :type="status" />
     <div class="w-full h-fit" v-if="numToDisp >= 10">
       <el-pagination
         background
