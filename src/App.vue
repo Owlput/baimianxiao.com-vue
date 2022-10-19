@@ -12,7 +12,7 @@ export default {
 </script>
 
 <template>
-  <TopNav></TopNav>
+  <TopNav class="hidden md:flex"></TopNav>
   <router-view></router-view>
 </template>
 
@@ -23,5 +23,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  position: relative;
 }
 </style>
