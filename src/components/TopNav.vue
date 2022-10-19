@@ -10,48 +10,23 @@ let router = useRouter();
 const route = useRoute();
 const activated = ref("");
 
+//prettier-ignore
 watchEffect(() => {
   switch (route.path.split("/")[1]) {
-    case "": {
-      activated.value = "1";
-      break;
-    }
-    case "artwork": {
-      activated.value = "2";
-      break;
-    }
-    case "artworks": {
-      activated.value = "2";
-      break;
-    }
-    case "permits": {
-      activated.value = "3";
-      break;
-    }
-    case "about": {
-      activated.value = "4";
-      break;
-    }
+    case "": { activated.value = "1"; break; }
+    case "artwork": { activated.value = "2"; break; }
+    case "artworks": { activated.value = "2"; break; }
+    case "permits": { activated.value = "3"; break; }
+    case "about": { activated.value = "4"; break; }
   }
 });
+//prettier-ignore
 function handleSelect(k, path) {
   switch (k) {
-    case "0": {
-      router.push("/");
-      break;
-    }
-    case "1": {
-      router.push("/");
-      break;
-    }
-    case "3": {
-      router.push("/permits");
-      break;
-    }
-    case "4": {
-      router.push("/about");
-      break;
-    }
+    case "0": { router.push("/"); break; }
+    case "1": { router.push("/"); break; }
+    case "3": { router.push("/permits"); break; }
+    case "4": { router.push("/about"); break; }
   }
 }
 </script>

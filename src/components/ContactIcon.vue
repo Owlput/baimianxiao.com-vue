@@ -10,26 +10,18 @@ const props = defineProps({
   href: String,
 });
 let source = "";
+//prettier-ignore
 switch (props.type) {
-  case "bcy":
-    source = bcy;
-    break;
-  case "bilibili":
-    source = bilibili;
-    break;
-  case "lofter":
-    source = lofter;
-    break;
-  case "pixiv":
-    source = pixiv;
-    break;
-  case "twitter":
-    source = twitter;
-    break;
-  case "weibo":
-    source = weibo;
+  case "bcy": source = bcy; break;
+  case "bilibili": source = bilibili; break;
+  case "lofter": source = lofter; break; 
+  case "pixiv": source = pixiv; break;
+  case "twitter": source = twitter; break;
+  case "weibo": source = weibo;
 }
 </script>
 <template>
-  <img :src="source" @click="Window.location.assign(href)" />
+  <li>
+    <img :src="source" @click="Window.location.assign(href)" />
+  </li>
 </template>
