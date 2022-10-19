@@ -13,10 +13,12 @@ switch (props.type) {
   default:
     message = "Unknown Error";
 }
-console.log(props.type)
+console.log(props.type);
 </script>
 
 <template>
-  <h1>:(</h1>
-  <p>{{ message }}</p>
+  <div class="block">
+    <h1 class="text-[5rem]">:(</h1>
+    <p class="text-2xl">{{ message }}</p>
+  </div>
 </template>
