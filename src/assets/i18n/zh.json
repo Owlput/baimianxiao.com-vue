@@ -13,5 +13,13 @@
   "timeOrder": {
     "newToOld": "从新到旧",
     "oldToNew": "从旧到新"
+  },
+  "artworkPage": {
+    "recentWorks": "最近作品",
+    "otherPlat": "其他平台",
+    "origin": "原图",
+    "permit": {
+      "custom": "该作品使用自定义许可"
+    }
   }
 }
