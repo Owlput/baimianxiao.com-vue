@@ -1,5 +1,5 @@
 <script>
-import { roundNumber } from '../oneliners'
+import { roundNumber } from '../helpers'
 export default {
     name: 'ViewCount',
     props: ['count'],
