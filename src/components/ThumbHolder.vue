@@ -4,36 +4,47 @@ import { apiAddr, imgAddr } from "../config";
 import { ref, watchEffect, computed, onMounted } from "vue";
 import ViewCount from "./ViewCount.vue";
 import { useI18n } from "vue-i18n";
-import ContentUnavailable from "./card/ContentUnavailable.vue";
+import ContentUnavailable from "./SiteStatus.vue";
+import useDataFetch from "../hooks/useDataFetch";
 
 let { t } = useI18n({});
-const thumbs = ref([]);
 const page = ref([1, 1]);
 const timeOrd = ref(1);
 const numToDisp = ref(10);
-const status = ref("");
+const { data, axiosError } = useDataFetch(
+  `${apiAddr}/baimianxiao/data/thumbData/all`
+);
+const status = computed(() => {
+  if (axiosError.value)
+    switch (axiosError.value.message) {
+      case "Network Error":
+        return "beTimeout";
+      default:
+        return "brokenLib";
+    }
+});
 
 //prettier-ignore
 function limitNumToDisp() {numToDisp.value = 4;}
 const displayed = computed(() => {
   // prettier-ignore
-  return thumbs.value
-    ? thumbs.value.slice( (page.value[0] - 1) * numToDisp.value, page.value[0] * numToDisp.value)
+  return data.value
+    ? data.value.slice( (page.value[0] - 1) * numToDisp.value, page.value[0] * numToDisp.value)
     : [];
 });
 const timeOrderList = ref([{ value: "none", label: "none" }]);
 function timeSort(ord) {
   //prettier-ignore
-  if (!thumbs.value) return; // Skip sorting when no data present.
+  if (!data.value) return; // Skip sorting when no data present.
   ord
-    ? thumbs.value.sort((s, t) => {
+    ? data.value.sort((s, t) => {
         let a = s.date;
         let b = t.date;
         if (a >= b) return -1;
         else if (a < b) return 1;
         else return -1;
       })
-    : thumbs.value.sort((s, t) => {
+    : data.value.sort((s, t) => {
         let a = s.date;
         let b = t.date;
         if (a >= b) return 1;
@@ -43,30 +54,17 @@ function timeSort(ord) {
 }
 
 // Side effects
+//prettier-ignore
 watchEffect(async () => {
-  thumbs.value = await (
-    await axios.get(`${apiAddr}/baimianxiao/data/thumbData/all`).catch((e) => {
-      switch (e.message) {
-        case "Network Error":
-          status.value = "beTimeout";
-          break;
-        default:
-          status.value = "brokenLib";
-      }
-    })
-  )?.data;
-  //prettier-ignore
-  if (!thumbs.value) {page.value = [1, 0];return;} // Set maximum page to 0 when no data present.
-  page.value = [1, Math.ceil(thumbs.value.length / numToDisp.value)];
+  if (!data.value) { page.value = [1, 0]; return; } // Set maximum page to 0 when no data present.
+  page.value = [1, Math.ceil(data.value.length / numToDisp.value)];
 });
 watchEffect(() => {
   timeSort(timeOrd.value);
 });
+// prettier-ignore
 onMounted(() => {
-  if (window.innerWidth < 640) {
-    limitNumToDisp();
-  }
-  // prettier-ignore
+  if (window.innerWidth < 640) { limitNumToDisp(); };
   timeOrderList.value = [{value: 1,label: t("timeOrder.newToOld"),},{value: 0,label: t("timeOrder.oldToNew"),},]; //Generate translation on the fly.
 });
 </script>
