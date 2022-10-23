@@ -17,7 +17,8 @@ switch (props.type) {
   case "lofter": source = lofter; break; 
   case "pixiv": source = pixiv; break;
   case "twitter": source = twitter; break;
-  case "weibo": source = weibo;
+  case "weibo": source = weibo; break;
+  default : break;
 }
 </script>
 <template>
