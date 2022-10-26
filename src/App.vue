@@ -1,19 +1,20 @@
 <script>
 import TopNav from "./components/TopNav.vue";
-import ThumbHolder from "./components/ThumbHolder.vue";
+import ArtworkPage from "./page/ArtworkPage.vue"
+
 
 export default {
   name: "App",
   components: {
     TopNav,
-    ThumbHolder,
   },
 };
 </script>
 
 <template>
   <TopNav class="hidden md:flex"></TopNav>
-  <router-view></router-view>
+  <router-view>
+  </router-view>
 </template>
 
 <style>
