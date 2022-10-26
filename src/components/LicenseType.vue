@@ -24,7 +24,7 @@ let licenseTemplate = `<a rel="license" href="http://creativecommons.org/license
 </script>
 <template>
   <div v-html="licenseTemplate" v-if="part"></div>
-  <a v-else :href="siteAddr + '/permit/' + props.id">{{
+  <a v-else @click="this.$router.push(`/permit/${props.id}`)">{{
     t("artworkPage.permit.custom")
   }}</a>
 </template>

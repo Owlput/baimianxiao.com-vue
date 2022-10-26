@@ -1,11 +1,10 @@
 <script setup>
-import axios from "axios";
 import { apiAddr, imgAddr } from "../config";
 import { ref, watchEffect, computed, onMounted } from "vue";
 import ViewCount from "./ViewCount.vue";
 import { useI18n } from "vue-i18n";
-import ContentUnavailable from "./SiteStatus.vue";
 import useDataFetch from "../hooks/useDataFetch";
+import SiteStatus from "./SiteStatus.vue";
 
 let { t } = useI18n({});
 const page = ref([1, 1]);
@@ -18,9 +17,9 @@ const status = computed(() => {
   if (axiosError.value)
     switch (axiosError.value.message) {
       case "Network Error":
-        return "beTimeout";
+        return ["beTimeout"];
       default:
-        return "brokenLib";
+        return ["brokenLib"];
     }
 });
 
@@ -66,6 +65,9 @@ watchEffect(() => {
 onMounted(() => {
   if (window.innerWidth < 640) { limitNumToDisp(); };
   timeOrderList.value = [{value: 1,label: t("timeOrder.newToOld"),},{value: 0,label: t("timeOrder.oldToNew"),},]; //Generate translation on the fly.
+  addEventListener("languageChanged",()=>{
+    timeOrderList.value = [{value: 1,label: t("timeOrder.newToOld"),},{value: 0,label: t("timeOrder.oldToNew"),},]; //Generate translation on the fly.
+  })
 });
 </script>
 
@@ -95,7 +97,7 @@ onMounted(() => {
         <img
           class="h-[200px] w-[200px] rounded-t-md hover:opacity-80"
           :src="imgAddr + '/thumbs/' + thumb.uri + '.jpg'"
-          @click="this.$router.push(`/artwork/${thumb.uri}`)"
+          @click="this.$router.push(`/illust/${thumb.uri}`)"
         />
         <div class="mt-1 mb-1 ml-1.5 hidden sm:block">
           <p class="ml-1.5">{{ thumb.title }}</p>
@@ -110,7 +112,7 @@ onMounted(() => {
         </div>
       </li>
     </ul>
-    <ContentUnavailable v-else-if="status" :type="status" />
+    <SiteStatus v-else-if="status" :status="status" />
     <div class="w-full h-fit" v-if="numToDisp >= 10">
       <el-pagination
         background

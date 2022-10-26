@@ -1,32 +1,34 @@
 <script setup>
 // This page component is for showing a single artwork
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { apiAddr, imgAddr } from "../config";
 import ContactIcon from "../components/ContactIcon.vue";
 import ArtworkWindow from "../components/ArtworkWindow.vue";
 import LicenseType from "../components/LicenseType.vue";
 import { useI18n } from "vue-i18n";
 import AuthorVert from "../components/card/AuthorVert.vue";
-import useDataFetch from "../hooks/useDataFetch";
 import { computed } from "@vue/reactivity";
 import { handleStatus } from "../helpers";
-const props = defineProps({
-  id: String,
-});
+import { useRoute } from "vue-router";
+import useWatchParams from "../hooks/useWatchParams";
 
+const route = useRoute();
 const { t } = useI18n({});
 const zoomHidden = ref(false);
-const { data, axiosError } = useDataFetch(
-  `${apiAddr}/baimianxiao/data/workData/${props.id}`
-);
 
-const status = computed(()=>{
-  handleStatus({axios:axiosError})
+let { data, axiosError } = useWatchParams(
+  route,
+  apiAddr + "/baimianxiao/data/workData/"
+);
+const status = computed(() => {
+  handleStatus({ axios: axiosError });
+});
+const recentWorksFiltered = computed(()=>{
+   return data.value.authorInfo.recentWorks.filter((v)=>{return v != route.params.id})
 })
 
-function toggleHidden() {
-  zoomHidden.value = !zoomHidden.value;
-}
+//prettier-ignore
+function toggleHidden() { zoomHidden.value = !zoomHidden.value; }
 </script>
 
 <template>
@@ -35,6 +37,7 @@ function toggleHidden() {
       <ArtworkWindow
         :source="data.source.this"
         :toggleParentHidden="toggleHidden"
+        :root="imgAddr + '/artwork/'"
         v-if="data.source"
       />
       <section class="mt-6 h-[15rem] shadow-md" v-show="!zoomHidden">
@@ -75,11 +78,12 @@ function toggleHidden() {
         <section>
           <p class="mx-auto">{{ t("artworkPage.recentWorks") }}</p>
           <ul class="flex justify-evenly flex-wrap mx-auto">
-            <li v-for="item in data.authorInfo.recentWorks" :key="item">
+            <li v-for="item in recentWorksFiltered" :key="item">
               <img
                 v-if="item != data.uri"
-                class="w-[6rem] h-[6rem]"
+                class="w-[6rem] h-[6rem] hover:cursor-pointer hover:opacity-80 rounded-md"
                 :src="imgAddr + '/thumbs/' + item + '.jpg'"
+                @click="this.$router.push('/artwork/' + item)"
               />
             </li>
           </ul>

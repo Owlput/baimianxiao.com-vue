@@ -1,20 +1,29 @@
-<script>
+<script setup>
+import { onMounted, watch } from "vue";
 import TopNav from "./components/TopNav.vue";
-import ArtworkPage from "./page/ArtworkPage.vue"
+import { useI18n } from "vue-i18n";
 
-
-export default {
-  name: "App",
-  components: {
-    TopNav,
-  },
-};
+const t = useI18n();
+let lang = localStorage.getItem("globalLanguage");
+onMounted(() => {
+  if (
+    !lang ||
+    t.availableLocales.filter((v) => {
+      console.log(v,lang)
+      v == lang;
+    }).filter((v)=>v).length<1
+  ) {
+    localStorage.setItem("globalLanguage", "en");
+  }
+  addEventListener("languageChanged",()=>{
+    t.locale.value = localStorage.getItem("globalLanguage");
+  })
+});
 </script>
 
 <template>
-  <TopNav class="hidden md:flex"></TopNav>
-  <router-view>
-  </router-view>
+  <TopNav></TopNav>
+  <router-view> </router-view>
 </template>
 
 <style>

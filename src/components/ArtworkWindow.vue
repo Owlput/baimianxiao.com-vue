@@ -1,58 +1,100 @@
 <script setup>
-import { ref, watchEffect } from "vue";
-import { imgAddr } from "../config.js";
-const expand = ref("");
-
-function toggleZoom(target = "") {
-  expand.value = target;
-}
-
+import { ref } from "vue";
 const props = defineProps({
   source: Array,
+  root: String,
   toggleParentHidden: Function,
 });
+const windowExpand = ref(props.source.length > 1 ?false:true); // false for 'row', true for 'col'
+const zoom = ref("");
+
+function toggleZoom(target = "") {
+  zoom.value = target;
+}
+function toggleWindowExpand() {
+  windowExpand.value = !windowExpand.value;
+}
+function scroll(direction) {
+  document.getElementById("dispList").scrollBy({
+    left: window.innerWidth * 0.8 * direction,
+    behavior: "smooth",
+  });
+}
+function getInnerWidth() {
+  return window.innerWidth;
+}
+function getInnerHeight() {
+  return window.innerHeight;
+}
 </script>
 <template>
-  <section class="sm:max-h-[40rem] w-full min-w-[15rem] shadow-md relative z-1">
+  <section class="sm:h-max w-full min-w-[15rem] shadow-md relative z-1">
     <button
-      v-if="source.length > 1"
+      v-if="source.length > 1 && !windowExpand"
       class="bg-gray-200 absolute left-4 top-[20rem] opacity-70 w-12 h-20 rounded-full"
+      @click="
+        () => {
+          scroll(-1);
+        }
+      "
     >
       P
     </button>
-    <img
-      @click="
-        () => {
-          toggleZoom(props.source[0]);
-        }
-      "
-      v-if="source.length < 2"
-      class="hover:cursor-zoom-in max-h-[40rem] h-fit m-auto"
-      :src="imgAddr + '/artwork/' + props.source[0]"
-    />
     <ul
-      v-else
-      class="w-full h-[40rem] flex flex-row items-center overflow-auto"
+      id="dispList"
+      :class="
+        'w-full h-full items-center flex overflow-auto snap-x snap-mandatory flex-' +
+        (windowExpand ? 'col' : 'row')
+      "
     >
       <li
-        class="h-full"
+        class="w-full h-full shrink-0 first-of-type:snap-start last-of-type:snap-end snap-center"
         v-for="item in props.source"
         :key="item"
-        :src="imgAddr + '/artwork/' + item"
-      ></li>
+      >
+        <img
+          class="hover:cursor-zoom-in max-h-[40rem] m-auto"
+          @dblclick="
+            () => {
+              toggleZoom(item);
+            }
+          "
+          :src="root + item"
+        />
+      </li>
     </ul>
     <button
-      v-if="source.length > 1"
+      v-if="source.length > 1 && !windowExpand"
       class="bg-gray-200 absolute right-4 top-[20rem] opacity-70 w-12 h-20 rounded-full"
+      @click="
+        () => {
+          scroll(1);
+        }
+      "
     >
       N
     </button>
+    <div
+      v-if="source.length > 1"
+      :class="
+        'absolute bottom-0 right-[25%] w-[50%] h-[8%] hover:cursor-' +
+        (windowExpand ? 'n' : 's') +
+        '-resize'
+      "
+      @dblclick="toggleWindowExpand"
+    ></div>
   </section>
   <section
-    v-if="expand"
-    class="absolute top-0 left-0 z-20 bg-white h-max w-max hover:cursor-zoom-out"
-    @click="toggleZoom()"
+    v-if="zoom"
+    :class="
+      'absolute top-0 left-0 z-20 bg-white hover:cursor-zoom-out min-h-[100vh] min-w-[100vw]' 
+    "
+    @click="
+      () => {
+        toggleZoom();
+      }
+    "
   >
-    <img :src="imgAddr + '/artwork/' + expand" />
+    <img :src="root + zoom" class="m-auto" style="max-width:unset;"/>
   </section>
 </template>
