@@ -6,18 +6,12 @@ import { useI18n } from "vue-i18n";
 const t = useI18n();
 let lang = localStorage.getItem("globalLanguage");
 onMounted(() => {
-  if (
-    !lang ||
-    t.availableLocales.filter((v) => {
-      console.log(v,lang)
-      v == lang;
-    }).filter((v)=>v).length<1
-  ) {
+  if (!lang || t.availableLocales.filter((v) => v == lang).length < 1) {
     localStorage.setItem("globalLanguage", "en");
   }
-  addEventListener("languageChanged",()=>{
+  addEventListener("languageChanged", () => {
     t.locale.value = localStorage.getItem("globalLanguage");
-  })
+  });
 });
 </script>
 
