@@ -22,11 +22,11 @@ function handleActivated(path) {
       activated.value = "1";
       break;
     }
-    case "artwork": {
+    case "illust": {
       activated.value = "2-1";
       break;
     }
-    case "artworks": {
+    case "illustrations": {
       activated.value = "2-1";
       break;
     }
@@ -38,12 +38,8 @@ function handleActivated(path) {
       activated.value = "2-3";
       break;
     }
-    case "permits": {
-      activated.value = "3";
-      break;
-    }
     case "about": {
-      activated.value = "4";
+      activated.value = "3";
       break;
     }
     default:
@@ -58,14 +54,18 @@ function handleSelect(key, path) {
     case "2-1": { router.push("/illustrations"); break;}
     case "2-2": { router.push("/articles"); break; }
     case "2-3": { router.push("/videos"); break; }
-    case "3": { router.push("/permits"); break; }
-    case "4": { router.push("/about"); break; }
+    case "3": { router.push("/about"); break; }
   }
 }
 const languageOptions = [
   { label: "简体中文", value: "zh" },
   { label: "English", value: "en" },
 ];
+watch(()=>{
+  route.path
+},()=>{
+  handleActivated(route.path)
+},{deep:true})
 watchEffect(()=>{
   localStorage.setItem("globalLanguage",lang.value)
   dispatchEvent(new Event("languageChanged"))
@@ -92,8 +92,7 @@ watchEffect(()=>{
       <el-menu-item index="2-2">{{ t("topNav.works.articles") }}</el-menu-item>
       <el-menu-item index="2-3">{{ t("topNav.works.videos") }}</el-menu-item>
     </el-sub-menu>
-    <el-menu-item index="3">{{ t("topNav.permits") }}</el-menu-item>
-    <el-menu-item index="4">{{ t("topNav.about") }}</el-menu-item
+    <el-menu-item index="3">{{ t("topNav.about") }}</el-menu-item
     ><el-menu-item-group
       ><img
         class="mx-4 my-auto"
