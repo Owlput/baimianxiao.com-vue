@@ -21,5 +21,9 @@
     "permit":{
       "custom":"Producer declared the condition"
     }
-  }
+  },
+  "notFound":{
+    "page":"The page you're looking for does not exist.",
+    "back":"Go Back"
+}
 }
