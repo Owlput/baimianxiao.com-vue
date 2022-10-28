@@ -1,12 +1,8 @@
-<script>
+<script setup>
 import { roundNumber } from '../helpers'
-export default {
-    name: 'ViewCount',
-    props: ['count'],
-    methods: {
-        roundNumber
-    }
-}
+const props = defineProps({
+    count:Number
+})
 </script>
 
 <template>
