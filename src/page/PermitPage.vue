@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { apiAddr, siteAddr, imgAddr } from "../config";
+import { apiAddr, imgAddr } from "../config";
 import AuthorVert from "../components/card/AuthorVert.vue";
 import { useRoute } from "vue-router";
 import useWatchParams from "../hooks/useWatchParams";
@@ -27,7 +27,11 @@ function toggleHidden() {
     </section>
     <section class="w-full">
       <p class="m-8">{{ data.desp }}</p>
-      <ArtworkWindow :source="data.prof" :toggleParentHidden="toggleHidden" :root="imgAddr + '/permit/perm_'"/>
+      <ArtworkWindow
+        :source="data.prof"
+        :toggleParentHidden="toggleHidden"
+        :root="imgAddr + '/permit/perm_'"
+      />
     </section>
   </div>
 </template>

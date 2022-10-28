@@ -1,6 +1,6 @@
 <script setup>
 // This page component is for showing a single artwork
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { apiAddr, imgAddr } from "../config";
 import ContactIcon from "../components/ContactIcon.vue";
 import ArtworkWindow from "../components/ArtworkWindow.vue";

@@ -23,13 +23,10 @@ const status = computed(() => {
     }
 });
 
-//prettier-ignore
-function limitNumToDisp() {numToDisp.value = 4;}
+const limitNumToDisp = () => (numToDisp.value = 4);
+// prettier-ignore
 const displayed = computed(() => {
-  // prettier-ignore
-  return data.value
-    ? data.value.slice( (page.value[0] - 1) * numToDisp.value, page.value[0] * numToDisp.value)
-    : [];
+  return data.value? data.value.slice( (page.value[0] - 1) * numToDisp.value, page.value[0] * numToDisp.value): [];
 });
 const timeOrderList = ref([{ value: "none", label: "none" }]);
 function timeSort(ord) {

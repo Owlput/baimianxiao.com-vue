@@ -3,16 +3,12 @@ const props = defineProps({
   status: Array,
 });
 let message = [];
+//prettier-ignore
 props.status.map((v) => {
   switch (v) {
-    case "beTimeout":
-      message.push("Backend didn't respond");
-      break;
-    case "brokenLib":
-      message.push("Broken Library");
-      break;
-    default:
-      message.push("Unknown Error");
+    case "beTimeout": message.push("Backend didn't respond"); break;
+    case "brokenLib": message.push("Broken Library"); break;
+    default: message.push("Unknown Error");
   }
 });
 </script>

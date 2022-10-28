@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, watch } from "vue";
+import { onMounted } from "vue";
 import TopNav from "./components/TopNav.vue";
 import { useI18n } from "vue-i18n";
 

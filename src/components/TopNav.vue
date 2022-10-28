@@ -10,66 +10,46 @@ let router = useRouter();
 const route = useRoute();
 const activated = ref("");
 const dialogTableVisible = ref(false);
-const lang = ref(localStorage.getItem("globalLanguage"))
+const lang = ref(localStorage.getItem("globalLanguage"));
 
 //prettier-ignore
-watch(()=>{route.path},() => {
-  handleActivated(route.path)
-},{deep:true});
+watch(()=>{route.path},() => handleActivated(route.path),{deep:true});
+//prettier-ignore
 function handleActivated(path) {
   switch (path.split("/")[1]) {
-    case "": {
-      activated.value = "1";
-      break;
-    }
-    case "illust": {
-      activated.value = "2-1";
-      break;
-    }
-    case "illustrations": {
-      activated.value = "2-1";
-      break;
-    }
-    case "articles": {
-      activated.value = "2-2";
-      break;
-    }
-    case "videos": {
-      activated.value = "2-3";
-      break;
-    }
-    case "about": {
-      activated.value = "3";
-      break;
-    }
-    default:
-      console.log(path);
+    case "": activated.value = "1"; break;
+    case "illust": activated.value = "2-1"; break;
+    case "illustrations": activated.value = "2-1"; break;
+    case "articles": activated.value = "2-2"; break;
+    case "videos": activated.value = "2-3"; break;
+    case "about": activated.value = "3"; break;
+    default: console.log(path);
   }
 }
 //prettier-ignore
 function handleSelect(key, path) {
   switch (key) {
-    case "0": { router.push("/"); break; }
-    case "1": { router.push("/"); break; }
-    case "2-1": { router.push("/illustrations"); break;}
-    case "2-2": { router.push("/articles"); break; }
-    case "2-3": { router.push("/videos"); break; }
-    case "3": { router.push("/about"); break; }
+    case "0": router.push("/"); break; 
+    case "1": router.push("/"); break; 
+    case "2-1": router.push("/illustrations"); break;
+    case "2-2": router.push("/articles"); break; 
+    case "2-3": router.push("/videos"); break; 
+    case "3": router.push("/about"); break; 
   }
 }
 const languageOptions = [
   { label: "简体中文", value: "zh" },
   { label: "English", value: "en" },
 ];
-watch(()=>{
-  route.path
-},()=>{
-  handleActivated(route.path)
-},{deep:true})
-watchEffect(()=>{
-  localStorage.setItem("globalLanguage",lang.value)
-  dispatchEvent(new Event("languageChanged"))
-})
+watch(
+  () => route.path,
+  () => handleActivated(route.path),
+  { deep: true }
+);
+watchEffect(() => {
+  localStorage.setItem("globalLanguage", lang.value);
+  dispatchEvent(new Event("languageChanged"));
+});
 </script>
 
 <template>
@@ -96,23 +76,14 @@ watchEffect(()=>{
     ><el-menu-item-group
       ><img
         class="mx-4 my-auto"
-        @click="
-          () => {
-            dialogTableVisible = true;
-          }
-        "
+        @click="() => (dialogTableVisible = true)"
         src="../assets/icons/translate.svg"
     /></el-menu-item-group>
     <div class="h-fit w-[5%]"></div>
   </el-menu>
   <el-dialog
     v-model="dialogTableVisible"
-    v-on:close="
-      () => {
-        x;
-        handleActivated(route.path);
-      }
-    "
+    v-on:close="() => handleActivated(route.path)"
   >
     <p>语言 / Language</p>
     <el-select v-model="lang">

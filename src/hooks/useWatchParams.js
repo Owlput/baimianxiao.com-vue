@@ -1,4 +1,4 @@
-import { ref,watch } from "vue";
+import { ref, watch } from "vue";
 import useDataFetch from "./useDataFetch";
 
 export default function useWatchParams(route, endpoint) {

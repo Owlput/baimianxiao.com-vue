@@ -26,11 +26,7 @@ function scroll(direction) {
     <button
       v-if="source.length > 1 && !windowExpand"
       class="bg-gray-200 absolute left-4 top-[20rem] opacity-70 w-12 h-20 rounded-full"
-      @click="
-        () => {
-          scroll(-1);
-        }
-      "
+      @click="() => scroll(-1)"
     >
       P
     </button>
@@ -48,11 +44,7 @@ function scroll(direction) {
       >
         <img
           class="hover:cursor-zoom-in max-h-[40rem] m-auto"
-          @click="
-            () => {
-              toggleZoom(item);
-            }
-          "
+          @click="() => toggleZoom(item)"
           :src="root + item"
         />
       </li>
@@ -60,11 +52,7 @@ function scroll(direction) {
     <button
       v-if="source.length > 1 && !windowExpand"
       class="bg-gray-200 absolute right-4 top-[20rem] opacity-70 w-12 h-20 rounded-full"
-      @click="
-        () => {
-          scroll(1);
-        }
-      "
+      @click="() => scroll(1)"
     >
       N
     </button>
@@ -81,11 +69,7 @@ function scroll(direction) {
   <section
     v-if="zoom"
     :class="'absolute top-0 left-0 z-20 bg-white hover:cursor-zoom-out min-h-[100vh] min-w-[100vw]'"
-    @click="
-      () => {
-        toggleZoom();
-      }
-    "
+    @click="() => toggleZoom()"
   >
     <img :src="root + zoom" class="m-auto" style="max-width: unset" />
   </section>
