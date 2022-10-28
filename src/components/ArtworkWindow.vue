@@ -5,7 +5,7 @@ const props = defineProps({
   root: String,
   toggleParentHidden: Function,
 });
-const windowExpand = ref(props.source.length > 1 ?false:true); // false for 'row', true for 'col'
+const windowExpand = ref(props.source.length > 1 ? false : true); // false for 'row', true for 'col'
 const zoom = ref("");
 
 function toggleZoom(target = "") {
@@ -19,12 +19,6 @@ function scroll(direction) {
     left: window.innerWidth * 0.8 * direction,
     behavior: "smooth",
   });
-}
-function getInnerWidth() {
-  return window.innerWidth;
-}
-function getInnerHeight() {
-  return window.innerHeight;
 }
 </script>
 <template>
@@ -54,7 +48,7 @@ function getInnerHeight() {
       >
         <img
           class="hover:cursor-zoom-in max-h-[40rem] m-auto"
-          @dblclick="
+          @click="
             () => {
               toggleZoom(item);
             }
@@ -86,15 +80,13 @@ function getInnerHeight() {
   </section>
   <section
     v-if="zoom"
-    :class="
-      'absolute top-0 left-0 z-20 bg-white hover:cursor-zoom-out min-h-[100vh] min-w-[100vw]' 
-    "
+    :class="'absolute top-0 left-0 z-20 bg-white hover:cursor-zoom-out min-h-[100vh] min-w-[100vw]'"
     @click="
       () => {
         toggleZoom();
       }
     "
   >
-    <img :src="root + zoom" class="m-auto" style="max-width:unset;"/>
+    <img :src="root + zoom" class="m-auto" style="max-width: unset" />
   </section>
 </template>
