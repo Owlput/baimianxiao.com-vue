@@ -95,7 +95,7 @@ onMounted(() => {
         :key="thumb.uri"
       >
         <img
-          class="h-[200px] w-[200px] rounded-t-md hover:opacity-80"
+          class="h-[200px] w-[200px] rounded-t-md hover:opacity-80 hover:cursor-pointer"
           :src="imgAddr + '/thumbs/' + thumb.uri + '.jpg'"
           @click="this.$router.push(`/illust/${thumb.uri}`)"
         />

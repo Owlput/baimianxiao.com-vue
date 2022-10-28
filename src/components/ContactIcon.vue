@@ -22,7 +22,7 @@ switch (props.type) {
 }
 </script>
 <template>
-  <li>
+  <li class="hover:cursor-pointer">
     <img :src="source" @click="Window.location.assign(href)" width="50" class="rounded-lg"/>
   </li>
 </template>
