@@ -1,12 +1,8 @@
-<script>
-import { roundNumber } from '../oneliners'
-export default {
-    name: 'ViewCount',
-    props: ['count'],
-    methods: {
-        roundNumber
-    }
-}
+<script setup>
+import { roundNumber } from '../helpers'
+const props = defineProps({
+    count:Number
+})
 </script>
 
 <template>

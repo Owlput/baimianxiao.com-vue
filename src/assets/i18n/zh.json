@@ -1,0 +1,29 @@
+{
+  "topNav": {
+    "home": "首页",
+    "works": {
+      "#main": "作品",
+      "illustrations": "插画",
+      "articles": "文章",
+      "videos": "视频"
+    },
+    "permits": "许可",
+    "about": "关于"
+  },
+  "timeOrder": {
+    "newToOld": "从新到旧",
+    "oldToNew": "从旧到新"
+  },
+  "artworkPage": {
+    "recentWorks": "最近作品",
+    "otherPlat": "其他平台",
+    "origin": "原图",
+    "permit": {
+      "custom": "该作品使用自定义许可"
+    }
+  },
+  "notFound":{
+    "page":"你要访问的页面不存在",
+    "back":"回到上一页"
+}
+}

@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-#app{
-    width: fit-content;
+#app {
+  width: 100%;
+  border-left: auto;
+  border-right: auto;
+  height: fit-content;
 }

@@ -1,0 +1,30 @@
+{
+    "topNav": {
+      "home": "",
+      "works": {
+        "#main": "",
+        "illustrations": "",
+        "articles": "",
+        "videos": ""
+      },
+      "permits": "",
+      "about": ""
+    },
+    "timeOrder": {
+      "newToOld": "",
+      "oldToNew": ""
+    },
+    "artworkPage": {
+      "recentWorks": "",
+      "otherPlat": "",
+      "origin": "",
+      "permit": {
+        "custom": ""
+      }
+    },
+    "notFound":{
+        "page":"",
+        "back":""
+    }
+  }
+  

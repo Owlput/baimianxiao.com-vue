@@ -1,31 +1,23 @@
-<script>
+<script setup>
+import { onMounted } from "vue";
 import TopNav from "./components/TopNav.vue";
-import ThumbHolder from "./components/ThumbHolder.vue";
+import { useI18n } from "vue-i18n";
 
-export default {
-  name: "App",
-  components: {
-    TopNav,
-    ThumbHolder,
-  },
-};
+const t = useI18n();
+let lang = localStorage.getItem("globalLanguage");
+onMounted(() => {
+  if (!lang || t.availableLocales.filter((v) => v == lang).length < 1) {
+    localStorage.setItem("globalLanguage", "en");
+  }
+  addEventListener("languageChanged", () => {
+    t.locale.value = localStorage.getItem("globalLanguage");
+  });
+});
 </script>
 
 <template>
   <TopNav></TopNav>
-  <router-view></router-view>
-  <section
-    class="bg-black flex min-h-fit justify-around items-center flex-wrap"
-  >
-    <a
-      href="https://beian.miit.gov.cn/"
-      class="sm:text-xl lg:text-3xl h-fit text-white m-2"
-      >赣ICP备2021006793号-2</a
-    >
-    <address class="sm:text-xl lg:text-3xl text-white h-fit m-2">
-      DrHuangMHT@owlput.org
-    </address>
-  </section>
+  <router-view> </router-view>
 </template>
 
 <style>
@@ -35,5 +27,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  position: relative;
 }
 </style>

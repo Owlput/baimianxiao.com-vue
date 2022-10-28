@@ -1,0 +1,29 @@
+{
+  "topNav": {
+    "home": "Home",
+    "works": {
+      "#main":"Works",
+      "illustrations":"Illustrations",
+      "articles":"Articles",
+      "videos":"Videos"
+    },
+    "permits": "Permits",
+    "about": "About"
+  },
+  "timeOrder": {
+    "newToOld": "New To Old",
+    "oldToNew": "Old To New"
+  },
+  "artworkPage": {
+    "recentWorks": "Recent Works",
+    "otherPlat": "See on Other Platform(s)",
+    "origin": "Origin",
+    "permit":{
+      "custom":"Producer declared the condition"
+    }
+  },
+  "notFound":{
+    "page":"The page you're looking for does not exist.",
+    "back":"Go Back"
+}
+}
