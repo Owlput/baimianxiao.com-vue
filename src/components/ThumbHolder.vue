@@ -5,7 +5,9 @@ import ViewCount from "./ViewCount.vue";
 import { useI18n } from "vue-i18n";
 import useDataFetch from "../hooks/useDataFetch";
 import SiteStatus from "./SiteStatus.vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter()
 let { t } = useI18n({});
 const page = ref([1, 1]);
 const timeOrd = ref(1);
@@ -94,7 +96,7 @@ onMounted(() => {
         <img
           class="h-[200px] w-[200px] rounded-t-md hover:opacity-80 hover:cursor-pointer"
           :src="imgAddr + '/thumbs/' + thumb.uri + '.jpg'"
-          @click="this.$router.push(`/illust/${thumb.uri}`)"
+          @click="router.push(`/illust/${thumb.uri}`)"
         />
         <div class="mt-1 mb-1 ml-1.5 hidden sm:block">
           <p class="ml-1.5">{{ thumb.title }}</p>
