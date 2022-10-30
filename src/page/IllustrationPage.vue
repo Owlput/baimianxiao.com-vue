@@ -11,7 +11,9 @@ import { computed } from "@vue/reactivity";
 import { handleStatus } from "../helpers";
 import { useRoute } from "vue-router";
 import useWatchParams from "../hooks/useWatchParams";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const route = useRoute();
 const { t } = useI18n({});
 const zoomHidden = ref(false);
@@ -23,9 +25,11 @@ let { data, axiosError } = useWatchParams(
 const status = computed(() => {
   handleStatus({ axios: axiosError });
 });
-const recentWorksFiltered = computed(()=>{
-   return data.value.authorInfo.recentWorks.filter((v)=>{return v != route.params.id})
-})
+const recentWorksFiltered = computed(() => {
+  return data.value.authorInfo.recentWorks.filter((v) => {
+    return v != route.params.id;
+  });
+});
 
 //prettier-ignore
 function toggleHidden() { zoomHidden.value = !zoomHidden.value; }
@@ -83,7 +87,7 @@ function toggleHidden() { zoomHidden.value = !zoomHidden.value; }
                 v-if="item != data.uri"
                 class="w-[6rem] h-[6rem] hover:cursor-pointer hover:opacity-80 rounded-md"
                 :src="imgAddr + '/thumbs/' + item + '.jpg'"
-                @click="this.$router.push('/artwork/' + item)"
+                @click="router.push('/artwork/' + item)"
               />
             </li>
           </ul>
