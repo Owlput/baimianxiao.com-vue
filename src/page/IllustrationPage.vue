@@ -32,7 +32,7 @@ function toggleHidden() { zoomHidden.value = !zoomHidden.value; }
 </script>
 
 <template>
-  <div class="2xl:w-[80rem] 2xl:mx-auto sm:mx-[8%] mx-0 my-4 flex" v-if="data">
+  <div class="2xl:w-[80rem] 2xl:mx-auto md:mx-[8%] mx-0 my-4 flex" v-if="data">
     <div class="w-full">
       <ArtworkWindow
         :source="data.source.this"
@@ -40,7 +40,7 @@ function toggleHidden() { zoomHidden.value = !zoomHidden.value; }
         :root="imgAddr + '/artwork/'"
         v-if="data.source"
       />
-      <section class="mt-6 h-[15rem] shadow-md" v-show="!zoomHidden">
+      <section class="mt-6 h-[12rem] shadow-md" v-show="!zoomHidden">
         <p class="lg:text-2xl text-left ml-6 my-6">{{ data.title }}</p>
         <div
           class="flex flex-row justify-evenly"

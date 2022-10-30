@@ -43,7 +43,7 @@ function scroll(direction) {
         :key="item"
       >
         <img
-          class="hover:cursor-zoom-in max-h-[40rem] m-auto"
+          class="hover:cursor-zoom-in md:max-h-[40rem] m-auto"
           @click="() => toggleZoom(item)"
           :src="root + item"
         />
