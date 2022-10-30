@@ -41,7 +41,7 @@ function toggleHidden() { zoomHidden.value = !zoomHidden.value; }
       <ArtworkWindow
         :source="data.source.this"
         :toggleParentHidden="toggleHidden"
-        :root="imgAddr + '/illust/'"
+        :root="imgAddr + '/artwork/'"
         v-if="data.source"
       />
       <section class="mt-6 h-[12rem] shadow-md" v-show="!zoomHidden">
