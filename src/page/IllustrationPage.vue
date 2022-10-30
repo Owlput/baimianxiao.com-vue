@@ -41,7 +41,7 @@ function toggleHidden() { zoomHidden.value = !zoomHidden.value; }
       <ArtworkWindow
         :source="data.source.this"
         :toggleParentHidden="toggleHidden"
-        :root="imgAddr + '/artwork/'"
+        :root="imgAddr + '/illust/'"
         v-if="data.source"
       />
       <section class="mt-6 h-[12rem] shadow-md" v-show="!zoomHidden">
@@ -87,7 +87,7 @@ function toggleHidden() { zoomHidden.value = !zoomHidden.value; }
                 v-if="item != data.uri"
                 class="w-[6rem] h-[6rem] hover:cursor-pointer hover:opacity-80 rounded-md"
                 :src="imgAddr + '/thumbs/' + item + '.jpg'"
-                @click="router.push('/artwork/' + item)"
+                @click="router.push('/illust/' + item)"
               />
             </li>
           </ul>
